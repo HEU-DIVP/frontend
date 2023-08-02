@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView/LoginView.vue'
 
 import ArticleView from '../views/ProjectView/ArticleView.vue'
 import AddArticleView from '../views/ProjectView/AddArticleView.vue'
+import EditArticleView from '../views/ProjectView/EditArticleView.vue'
 
 import ProjectView from '../views/SystemView/ProjectView.vue'
 
@@ -47,6 +48,15 @@ const router = new Router({
       component: AddArticleView,
       meta: {
         title: "添加文章",
+        needLogin: true
+      }
+    },
+    {
+      path: '/editarticle',
+      name: 'editarticle',
+      component: EditArticleView,
+      meta: {
+        title: "修改信息",
         needLogin: true
       }
     },

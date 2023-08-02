@@ -24,6 +24,12 @@ axios.interceptors.request.use((config) => {
 })
 
 axios.interceptors.response.use((res) => {
+  if (res.data.msg) {
+    ElementUI.Message({
+      message: res.data.msg,
+      type: 'success'
+    })
+  }
   return res;
 }, (err) => {
   if (err.response.status == 401) {
@@ -35,7 +41,7 @@ axios.interceptors.response.use((res) => {
     router.push('/login')
   } else if (err.response.status == 400) {
     ElementUI.Message({
-      message: err.response.data.detail,
+      message: err.response.data.msg,
       type: 'error'
     })
     router.push('/login')
