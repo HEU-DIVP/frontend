@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <el-header>
-      <div style="height:20px;display: flex;justify-content: space-between;">
+    <el-header height="40px">
+      <div style="height:20px;display: flex;justify-content: space-between;line-height:2;">
         <div style="font-size:20px;width: 800px;" @click="gotoMainView">
           标题还没想好，不急
         </div>
         <div style="font-size:20px;margin-left: 100px;">
           <el-dropdown>
-            <div style="text-align:right">
+            <div style="text-alxign:right">
               <span>logined user: {{ user }}</span>
             </div>
             <el-dropdown-menu slot="dropdown">
@@ -20,8 +20,8 @@
         </div>
       </div>
     </el-header>
-    <el-container style="height: 630px; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)" >
+    <el-container style="height: 100%; border: 1px solid #eee">
+      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu :default-openeds="['1', '2', '3']">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-s-promotion"></i>首页</template>
@@ -58,6 +58,12 @@
 
 .el-aside {
   color: #333;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>
 

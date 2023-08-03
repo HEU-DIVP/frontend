@@ -59,20 +59,11 @@ export default {
                 }
             }).then((res) => {
                 console.log(res)
-                if (res.status == 200) {
-                    this.$store.commit('$_setToken', res.data.token)
-                    this.$message({
-                        message: res.data.detail,
-                        type: 'success'
-                    })
-                    this.$store.commit('$_setUsername', this.form.username)
-                    this.$router.push('/')
-                } else {
-                    this.$message({
-                        message: res.data.detail,
-                        type: 'error'
-                    })
-                }
+                this.$store.commit('$_setToken', res.data.token)
+                this.$store.commit('$_setUsername', this.form.username)
+                this.$router.push('/')
+            }).catch((err)=>{
+                console.log(err)
             })
         },
         getCodeImg() {
@@ -89,6 +80,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
