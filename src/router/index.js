@@ -83,18 +83,12 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('1')
-  console.log(to.meta.needLogin)
   if (to.meta.needLogin) { // 判断该路由是否需要登录权限
-    console.log('2')
     let token = localStorage.getItem('token')
-    console.log(token)
     if (token) { // 判断是否已经登录
-      console.log('y')
       next()
     }
     else {
-      console.log('n')
       next({ path: '/login' }) //跳转到登录页
     }
   }
@@ -104,7 +98,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(to => {
-  console.log('jb')
   // 设置title
   document.title = to.meta.title;
 })

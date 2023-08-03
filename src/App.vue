@@ -20,7 +20,7 @@
       </div>
     </el-header>
     <el-container style="height: 630px; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <el-aside width="200px" style="background-color: rgb(238, 241, 246)" >
         <el-menu :default-openeds="['1', '2', '3']">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-s-promotion"></i>首页</template>

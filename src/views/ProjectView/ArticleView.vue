@@ -77,7 +77,7 @@
       </el-dialog>
     </div>
 
-  </el-col>
+	</el-col>
 </template>
 
 <script>
@@ -230,7 +230,7 @@ export default {
 
 <style>
 .ifr {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 </style>
