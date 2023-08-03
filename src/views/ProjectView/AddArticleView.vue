@@ -3,7 +3,8 @@
         <div style="margin-left:40px;margin-top:30px">
             <h2>新增文章信息</h2>
         </div>
-        <el-form ref="form" :model="form" :rules="rules" label-width="80px" style="margin-top:25px; margin-left:30px; width:400px">
+        <el-form ref="form" :model="form" :rules="rules" label-width="80px"
+            style="margin-top:25px; margin-left:30px; width:400px">
             <el-form-item label="文章名称" prop="name">
                 <el-input v-model="arti.title" :value="arti.title"></el-input>
             </el-form-item>
@@ -19,7 +20,8 @@
             <el-form-item label="点击量" prop="cnt">
                 <el-input v-model="arti.click_count" :value="arti.click_count"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="onSubmit">添加</el-button>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">添加</el-button>
             </el-form-item>
         </el-form>
     </el-col>

@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import MainView from '../views/HomeView/MainView.vue'
 
 import LoginView from '../views/LoginView/LoginView.vue'
+import ChangePasswordView from '../views/LoginView/ChangePasswordView.vue'
 
 import ArticleView from '../views/ProjectView/ArticleView.vue'
 import AddArticleView from '../views/ProjectView/AddArticleView.vue'
@@ -31,6 +32,15 @@ const router = new Router({
       component: LoginView,
       meta: {
         title: "登录"
+      }
+    },
+    {
+      path: '/changepassword',
+      name: 'changepassword',
+      component: ChangePasswordView,
+      meta: {
+        title: "修改密码",
+        needLogin: true
       }
     },
     {

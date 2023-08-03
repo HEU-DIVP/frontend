@@ -5,12 +5,14 @@
       <el-button type="info" icon="el-icon-refresh" circle @click="x_refresh"></el-button>
       <span style="margin-left:20px;width: 90px;">搜索文章: </span>
       <el-input placeholder="输入文章标题" v-model="input" clearable style="width:200px"></el-input>
-      <el-button icon="el-icon-search" circle style="margin-left:20px" @click="searchCustomer"></el-button>
+      <el-button icon="el-icon-search" circle style="margin-left:20px" @click="searchArticle"></el-button>
       <el-select v-model="cate_name" placeholder="请选择文章来源" style="margin-left:20px">
         <el-option label="全部" @click.native="req_category(0, 1)"></el-option>
         <el-option v-for="(cate, index) in categoryData" :key="index" :label="cate.name" :value="cate.cid"
           @click.native="req_category(cate.cid, 1)"></el-option>
       </el-select>
+      <el-button icon="el-icon-plus" circle style="margin-left:20px" @click="AddCategory"></el-button>
+      <el-button type="danger" icon="el-icon-delete" circle @click="DeleteCategory"></el-button>
     </div>
     <div>
       <el-table v-loading="loading" :data="articleData" border lazy stripe :cell-style="cellStyle"
@@ -45,6 +47,35 @@
         </span>
       </el-dialog>
     </div>
+    <div>
+      <el-dialog title="添加来源" :visible.sync="dialogAddVisible" width="20%">
+        <div style="width:400px;height:300px;overflow:hidden;transform-origin:top left;transform:scale(0.8)">
+          <el-form ref="form" :model="form" label-width="80px" style="margin-top:25px; margin-left:30px; width:300px">
+            <el-form-item label="类别名称" prop="name">
+                <el-input v-model="new_category" :value="new_category"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="SubmitNewCategory">确 定</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog title="删除来源" :visible.sync="dialogDeleteVisible" width="20%">
+        <div style="width:400px;height:300px;overflow:hidden;transform-origin:top left;transform:scale(0.8)">
+          <el-form ref="form" :model="form" label-width="80px" style="margin-top:25px; margin-left:30px; width:300px">
+            <el-form-item label="文章来源" prop="source">
+                <el-select v-model="delete_category_name" placeholder="请选择文章来源" style="margin-left:20px">
+                    <el-option v-for="(cate, index) in categoryData" :key="index" :label="cate.name" :value="cate.cid"
+                        @click.native="choose_del_category(cate.cid, cate.name)"></el-option>
+                </el-select>
+            </el-form-item>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="SubmitDeleteCategory">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
 
   </el-col>
 </template>
@@ -64,8 +95,12 @@ export default {
       cur_size: 20,
       cur_page: 1,
       dialogVisible: false,
-      dialogEditVisible: false,
-      url: ''
+      dialogAddVisible: false,
+      dialogDeleteVisible: false,
+      url: '',
+      new_category: '',
+      delete_category: 0,
+      delete_category_name: ''
     }
   },
   mounted() {
@@ -134,41 +169,8 @@ export default {
     handleCurrentChange(val) {
       this.req_category(this.cur_cid, val)
     },
-    searchCustomer() {
-      axios.request({
-        method: 'GET',
-        url: 'api/customer/customers',
-        params: {
-          is_empty: 1,
-          name_or_phone_num: this.input
-        }
-      }).then((res) => {
-        this.customerData = res.data,
-          this.$message({
-            message: 'ok',
-            type: 'success'
-          })
-      })
-    },
-    addCustomer() {
-      axios.request({
-        method: 'POST',
-        url: 'api/customer/customer',
-        data: {
-          name: this.form.name,
-          age: this.form.age,
-          gender: this.form.gender,
-          phone_num: this.form.phone_num,
-          email: this.form.email,
-          level: this.form.level
-        }
-      }).then((res) => {
-        this.dialogFormVisible = false
-        this.$message({
-          message: res.data.detail,
-          type: 'success'
-        })
-      })
+    searchArticle() {
+      console.log("searchArticle function")
     },
     optRedirect(row) {
       this.url = row.url
@@ -185,39 +187,41 @@ export default {
         this.x_refresh()
       })
     },
-    modifyCustomer() {
-      if (this.form1.gender == '男') {
-        this.form1.gender_choice = 1
-      } else if (this.form1.gender == '女') {
-        this.form1.gender_choice = 2
-      } else if (this.form1.gender == '未指定') {
-        this.form1.gender_choice = 0
-      }
-      if (this.form1.level == '普通会员') {
-        this.form1.level_choice = 1
-      } else if (this.form1.level == '超级会员') {
-        this.form1.level_choice = 2
-      } else if (this.level == '至尊会员') {
-        this.form1.level_choice = 3
-      }
+    AddCategory() {
+      this.dialogAddVisible = true
+    },
+    SubmitNewCategory() {
       axios.request({
         method: 'POST',
-        url: 'api/customer/customer',
+        url: 'api/article/category',
         data: {
-          uid: this.form1.uid,
-          name: this.form1.name,
-          age: this.form1.age,
-          gender: this.form1.gender_choice,
-          phone_num: this.form1.phone_num,
-          email: this.form1.email,
-          level: this.form1.level_choice
+          name: this.new_category
         }
       }).then((res) => {
-        this.dialogFormVisible1 = false
-        this.$message({
-          message: res.data.detail,
-          type: 'success'
-        })
+        this.dialogAddVisible = false
+      })
+    },
+    DeleteCategory() {
+      this.getCategoryData()
+      this.dialogDeleteVisible = true
+    },
+    choose_del_category(del_id, del_name) {
+      this.delete_category = del_id
+      this.delete_category_name = del_name
+    },
+    SubmitDeleteCategory() {
+      if (this.delete_category == 0) {
+        this.dialogDeleteVisible = false
+        return
+      }
+      axios.request({
+        method: 'DELETE',
+        url: 'api/article/category',
+        data: {
+          cid: this.delete_category
+        }
+      }).then((res) => {
+        this.dialogDeleteVisible = false
       })
     }
   }
