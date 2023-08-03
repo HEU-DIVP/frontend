@@ -14,6 +14,7 @@
               <el-dropdown-item @click.native="gotoMainView">首页</el-dropdown-item>
               <el-dropdown-item @click.native="gotoProjectView">关于</el-dropdown-item>
               <el-dropdown-item @click.native="gotoLogout">注销</el-dropdown-item>
+              <el-dropdown-item @click.native="gotoChangePassword">修改密码</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -90,6 +91,9 @@ export default {
     },
     getUserName() {
       this.user = localStorage.getItem('username');
+    },
+    gotoChangePassword() {
+      this.$router.push("/changepassword");
     }
   },
 }
