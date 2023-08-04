@@ -5,36 +5,30 @@
 				<div style="height: 410px;">
 					<el-row type="flex">
 						<el-col>
-							<div id="echarts1" style="width: 600px; height: 390px;"></div>
+							<div id="echarts1" style="width: 650px; height: 360px;"></div>
 						</el-col>
 						<el-col>
-							<div id="echarts2" style="width: 600px; height: 390px;"></div>
+							<div id="echarts2" style="width: 650px; height: 360px;"></div>
 						</el-col>
 					</el-row>
-					<!-- <el-row type="flex">
-						<el-col>
-							1241233i3ridfkjakfjdslkfjd
-							<div id="echarts3" style="width: 1200px; height: 300px;"></div>
-						</el-col>
-					</el-row> -->
 				</div>
 			</el-container>
 			<div>
-				<el-table :data="dataCf" height="540px" border style="width:100%;margin-top:20px">
-					<el-table-column prop="id" label="#" width="150" header-align="center"></el-table-column>
-					<el-table-column prop="creationTimeSeconds" label="creationTimeSeconds" width="200"
-						header-align="center"></el-table-column>
-					<el-table-column prop="problem.rating" label="rating" width="100"
-						header-align="center"></el-table-column>
-					<el-table-column prop="author.contestId" label="contestId" width="100"
-						header-align="center"></el-table-column>
-					<el-table-column prop="programmingLanguage" label="Lang" width="200"
-						header-align="center"></el-table-column>
-					<el-table-column prop="verdict" label="Verdict" header-align="center"></el-table-column>
-					<el-table-column prop="timeConsumedMillis" label="Time" width="200"
-						header-align="center"></el-table-column>
-					<el-table-column prop="memoryConsumedBytes" label="Memory" width="200"
-						header-align="center"></el-table-column>
+				<el-table :data="dataCf" height="240px" border style="width:100%;margin-top20px">
+					<el-table-column prop="id" label="#" width="140" header-align="center" align="center"></el-table-column>
+					<el-table-column prop="creationTimeSeconds" label="When" width="140" header-align="center"
+						align="center"></el-table-column>
+					<el-table-column prop="problem.rating" label="Rating" width="140" header-align="center"
+						align="center"></el-table-column>
+					<el-table-column prop="author.contestId" label="ContestID" width="140" header-align="center"
+						align="center"></el-table-column>
+					<el-table-column prop="programmingLanguage" label="Lang" width="200" header-align="center"
+						align="center"></el-table-column>
+					<el-table-column prop="verdict" label="Verdict" header-align="center" align="center"></el-table-column>
+					<el-table-column prop="timeConsumedMillis" label="Time" width="120" header-align="center"
+						align="center"></el-table-column>
+					<el-table-column prop="memoryConsumedBytes" label="Memory" width="120" header-align="center"
+						align="center"></el-table-column>
 				</el-table>
 			</div>
 		</el-col>

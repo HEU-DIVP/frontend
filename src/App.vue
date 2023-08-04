@@ -3,7 +3,7 @@
     <el-header height="40px">
       <div style="height:20px;display: flex;justify-content: space-between;line-height:2;">
         <div style="font-size:20px;width: 800px;" @click="gotoMainView">
-          标题还没想好，不急
+          实习项目 | CRUD与数据可视化
         </div>
         <div style="font-size:20px;margin-left: 100px;">
           <el-dropdown>
@@ -31,15 +31,15 @@
             </el-menu-item>
           </el-submenu>
           <el-submenu index="2">
-            <template slot="title"><i class="el-icon-menu"></i>系统管理</template>
+            <template slot="title"><i class="el-icon-menu"></i>本地数据管理</template>
             <el-menu-item index="2-1" @click="gotoArticleView">
               <template slot="title"><i class="el-icon-toilet-paper"></i>文章管理</template>
             </el-menu-item>
           </el-submenu>
           <el-submenu index="3">
-            <template slot="title"><i class="el-icon-setting"></i>项目信息</template>
+            <template slot="title"><i class="el-icon-setting"></i>在线数据爬取</template>
             <el-menu-item index="3-1" @click="gotoProjectView">
-              <template slot="title"><i class="el-icon-video-pause"></i>项目简介</template>
+              <template slot="title"><i class="el-icon-video-pause"></i>Codeforces</template>
             </el-menu-item>
           </el-submenu>
         </el-menu>
