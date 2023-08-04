@@ -12,7 +12,7 @@
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 500px; height: 300px;"></div>
+						<div id="echarts3" style="width: 600px; height: 300px;"></div>
 					</el-col>
 					<el-col>
 						<div id="echarts4" style="width: 500px; height: 300px;"></div>
@@ -173,13 +173,15 @@ export default {
 					trigger: 'axis'
 				},
 				legend: {
-					data: this.legend_data3
+					data: this.legend_data3,
+                    orient: 'vertical',
+                    left: 'left',
 				},
 				grid: {
-					left: '3%',
+					left: '28%',
 					right: '4%',
 					bottom: '3%',
-					top: '25%',
+					top: '3 %',
 					containLabel: true
 				},
 				toolbox: {
