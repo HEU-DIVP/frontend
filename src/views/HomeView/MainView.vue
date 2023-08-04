@@ -167,7 +167,7 @@ export default {
 			var option;
 			option = {
 				title: {
-					text: ''
+					text: '' //123123123
 				},
 				tooltip: {
 					trigger: 'axis'
