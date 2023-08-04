@@ -4,18 +4,15 @@
 			<div>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts1" style="width: 500px; height: 300px;"></div>
+						<div id="echarts1" style="width: 600px; height: 390px;"></div>
 					</el-col>
 					<el-col>
-						<div id="echarts2" style="width: 500px; height: 300px;"></div>
+						<div id="echarts2" style="width: 600px; height: 390px;"></div>
 					</el-col>
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 600px; height: 300px;"></div>
-					</el-col>
-					<el-col>
-						<div id="echarts4" style="width: 500px; height: 300px;"></div>
+						<div id="echarts3" style="width: 1200px; height: 300px;"></div>
 					</el-col>
 				</el-row>
 			</div>
@@ -39,7 +36,6 @@ export default {
 		this.getEchartsData1()
 		this.getEchartsData2()
 		this.getEchartsData3()
-		this.getEchartsData4()
 	},
 	methods: {
 		showEcharts1() {
@@ -47,17 +43,22 @@ export default {
 			var myChart = echarts.init(chartDom);
 			var option;
 			option = {
+				title: {
+					text: 'fuck xdl',
+					left: 'center'
+				},
 				tooltip: {
 					trigger: 'item'
 				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
-				// },
+				legend: {
+					// textStyle: {
+					// 	fontSize: 10,
+					// },
+					show: true,
+					top: '20%',
+					orient: 'vertical',
+					left: 'left'
+				},
 				series: [
 					{
 						name: ['Access From'],
@@ -109,14 +110,23 @@ export default {
 				tooltip: {
 					trigger: 'item'
 				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
-				// },
+				title: {
+					text: 'fuck xdl',
+					left: 'center'
+				},
+				legend: {
+					// textStyle: {
+					// 	fontSize: 10,
+					// },
+					show: true,
+					top: '20%',
+					orient: 'vertical',
+					left: 'left'
+				},
+				grid: {
+					left: '400px',
+					containLabel: true
+				},
 				series: [
 					{
 						name: ['Access From'],
@@ -142,24 +152,23 @@ export default {
 						labelLine: {
 							show: false
 						},
-						data: this.data1,
+						data: this.data2,
 					}
 				]
 			};
 			option && myChart.setOption(option);
 		},
 		getEchartsData2() {
-			// axios.request({
-			// 	method: 'GET',
-			// 	url: 'api/article/nightingale',
-			// 	params: {
-			// 		chart_type: 'count',
-			// 	}
-			// }).then((res) => {
-			// 	this.data1 = res.data
-			// this.data3 = 
-			this.showEcharts2()
-			// })
+			axios.request({
+				method: 'GET',
+				url: 'api/article/nightingale',
+				params: {
+					chart_type: 'click',
+				}
+			}).then((res) => {
+				this.data2 = res.data
+				this.showEcharts2()
+			})
 		},
 		showEcharts3() {
 			var chartDom = document.getElementById('echarts3');
@@ -174,11 +183,11 @@ export default {
 				},
 				legend: {
 					data: this.legend_data3,
-                    orient: 'vertical',
-                    left: 'left',
+					orient: 'vertical',
+					left: 'left',
 				},
 				grid: {
-					left: '28%',
+					left: '180px',
 					right: '4%',
 					bottom: '3%',
 					top: '3 %',
