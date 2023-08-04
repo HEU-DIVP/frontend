@@ -1,18 +1,20 @@
 <template>
 	<div>
 		<el-container>
-			<div>
+			<div style="margin-top: 10px;">
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts1" style="width: 600px; height: 390px;"></div>
+						<div style="text-align: center;">文章板块分布</div>
+						<div id="echarts1" style="width: 600px; height: 330px;"></div>
 					</el-col>
 					<el-col>
-						<div id="echarts2" style="width: 600px; height: 390px;"></div>
+						<div style="text-align: center;">文章点击量分布</div>
+						<div id="echarts2" style="width: 600px; height: 330px;"></div>
 					</el-col>
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 1200px; height: 300px;"></div>
+						<div id="echarts3" style="width: 1200px; height: 290px;"></div>
 					</el-col>
 				</el-row>
 			</div>
@@ -55,7 +57,7 @@ export default {
 					// 	fontSize: 10,
 					// },
 					show: true,
-					top: '20%',
+					top: '5%',
 					orient: 'vertical',
 					left: 'left',
 
@@ -65,7 +67,7 @@ export default {
 						name: ['Access From'],
 						type: 'pie',
 						radius: ['0%', '70%'],
-						center: ['70%', '50%'],
+						center: ['70%', '45%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
@@ -116,15 +118,15 @@ export default {
 				// 	text: 'fuck xdl',
 				// 	left: 'center'
 				// },
-				// legend: {
-				// 	// textStyle: {
-				// 	// 	fontSize: 10,
-				// 	// },
-				// 	show: true,
-				// 	top: '20%',
-				// 	orient: 'vertical',
-				// 	left: 'left'
-				// },
+				legend: {
+					// textStyle: {
+					// 	fontSize: 10,
+					// },
+					show: true,
+					top: '5%',
+					orient: 'vertical',
+					left: 'left'
+				},
 				grid: {
 					left: '200px',
 					containLabel: true
@@ -134,6 +136,7 @@ export default {
 						name: ['Access From'],
 						type: 'pie',
 						radius: ['0%', '70%'],
+						center: ['70%', '45%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
@@ -248,6 +251,7 @@ export default {
 						name: ['Access From'],
 						type: 'pie',
 						radius: ['40%', '70%'],
+						center: ['50%', '30%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,

@@ -15,7 +15,7 @@
       <el-button type="danger" icon="el-icon-delete" circle @click="DeleteCategory"></el-button>
     </div>
     <div>
-      <el-table v-loading="loading" :data="articleData" height="  " border style="width:100%;margin-top:20px" >
+      <el-table v-loading="loading" :data="articleData" height="540px" border style="width:100%;margin-top:20px" >
         <el-table-column type="index" label="序号" width="60" header-align="center"></el-table-column>
         <el-table-column prop="create_time" label="发布时间" width="150" header-align="center"></el-table-column>
         <el-table-column prop="title" label="标题" header-align="center"></el-table-column>
