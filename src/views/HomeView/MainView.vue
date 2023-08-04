@@ -4,18 +4,15 @@
 			<div>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts1" style="width: 300px; height: 300px;"></div>
+						<div id="echarts1" style="width: 600px; height: 390px;"></div>
 					</el-col>
 					<el-col>
-						<div id="echarts2" style="width: 300px; height: 300px;"></div>
+						<div id="echarts2" style="width: 600px; height: 390px;"></div>
 					</el-col>
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 300px; height: 300px;"></div>
-					</el-col>
-					<el-col>
-						<div id="echarts4" style="width: 300px; height: 300px;"></div>
+						<div id="echarts3" style="width: 1200px; height: 300px;"></div>
 					</el-col>
 				</el-row>
 			</div>
@@ -29,14 +26,16 @@ import axios from 'axios'
 export default {
 	data() {
 		return {
-			data1: []
+			data1: [],
+			legend_data3: [],
+			xAxis_data3: [],
+			series3: [],
 		};
 	},
 	mounted() {
 		this.getEchartsData1()
 		this.getEchartsData2()
 		this.getEchartsData3()
-		this.getEchartsData4()
 	},
 	methods: {
 		showEcharts1() {
@@ -44,22 +43,29 @@ export default {
 			var myChart = echarts.init(chartDom);
 			var option;
 			option = {
+				// title: {
+				// 	text: 'fuck xdl',
+				// 	left: 'center'
+				// },
 				tooltip: {
 					trigger: 'item'
 				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
-				// },
+				legend: {
+					// textStyle: {
+					// 	fontSize: 10,
+					// },
+					show: true,
+					top: '20%',
+					orient: 'vertical',
+					left: 'left',
+
+				},
 				series: [
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['40%', '70%'],
+						radius: ['0%', '70%'],
+						center: ['70%', '50%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
@@ -106,19 +112,28 @@ export default {
 				tooltip: {
 					trigger: 'item'
 				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
+				// title: {
+				// 	text: 'fuck xdl',
+				// 	left: 'center'
 				// },
+				// legend: {
+				// 	// textStyle: {
+				// 	// 	fontSize: 10,
+				// 	// },
+				// 	show: true,
+				// 	top: '20%',
+				// 	orient: 'vertical',
+				// 	left: 'left'
+				// },
+				grid: {
+					left: '200px',
+					containLabel: true
+				},
 				series: [
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['40%', '70%'],
+						radius: ['0%', '70%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
@@ -139,7 +154,7 @@ export default {
 						labelLine: {
 							show: false
 						},
-						data: this.data1,
+						data: this.data2,
 					}
 				]
 			};
@@ -150,10 +165,10 @@ export default {
 				method: 'GET',
 				url: 'api/article/nightingale',
 				params: {
-					chart_type: 'count',
+					chart_type: 'click',
 				}
 			}).then((res) => {
-				this.data1 = res.data
+				this.data2 = res.data
 				this.showEcharts2()
 			})
 		},
@@ -162,57 +177,53 @@ export default {
 			var myChart = echarts.init(chartDom);
 			var option;
 			option = {
-				tooltip: {
-					trigger: 'item'
+				title: {
+					text: '' //123123123
 				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
-				// },
-				series: [
-					{
-						name: ['Access From'],
-						type: 'pie',
-						radius: ['40%', '70%'],
-						avoidLabelOverlap: false,
-						itemStyle: {
-							borderRadius: 0,
-							borderColor: '#fff',
-							borderWidth: 0
-						},
-						label: {
-							show: false,
-							position: 'center'
-						},
-						emphasis: {
-							label: {
-								show: true,
-								fontSize: 10,
-								fontWeight: 'bold'
-							}
-						},
-						labelLine: {
-							show: false
-						},
-						data: this.data1,
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data: this.legend_data3,
+					orient: 'vertical',
+					left: 'left',
+				},
+				grid: {
+					left: '180px',
+					right: '4%',
+					bottom: '3%',
+					top: '3 %',
+					containLabel: true
+				},
+				toolbox: {
+					feature: {
+						saveAsImage: {}
 					}
-				]
-			};
-			option && myChart.setOption(option);
+				},
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: this.xAxis_data3
+				},
+				yAxis: {
+					type: 'value'
+				},
+				"series": this.series3
+			}
+			option && myChart.setOption(option)
 		},
 		getEchartsData3() {
 			axios.request({
 				method: 'GET',
-				url: 'api/article/nightingale',
+				url: 'api/article/line',
 				params: {
-					chart_type: 'count',
+					chart_type: 'year',
 				}
 			}).then((res) => {
-				this.data1 = res.data
+				this.legend_data3 = res.data.category_list
+				this.xAxis_data3 = res.data.year_list
+				this.series3 = res.data.series
+				// console.log(this.xAxis_data3)
 				this.showEcharts3()
 			})
 		},
