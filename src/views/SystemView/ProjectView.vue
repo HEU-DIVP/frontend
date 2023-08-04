@@ -1,21 +1,23 @@
 <template>
-	<div style="width:75%">
-		<div style="margin-top:20px;margin-left: 30px;font-size: x-large;">
-			项目简介
-		</div>
-		<el-divider></el-divider>
-		<div style="margin-left:30px">
-			<p style="line-height:30px">
-				辛大佬说让我先做别的，所以先空着。
-			</p>
-		</div>
-		<el-divider></el-divider>
-		<div style="margin-left:30px">
-			<p style="line-height:30px">
-				辛大佬说没用，所以先不写了。
-			</p>
-		</div>
-		<div id="fuck114" style="width: 75%; height: 600px;"></div>
+	<div>
+		<el-container>
+			<div style="height: 800px;">
+				<el-row type="flex">
+					<el-col>
+						<div id="echarts1" style="width: 600px; height: 390px;"></div>
+					</el-col>
+					<el-col>
+						<div id="echarts2" style="width: 600px; height: 390px;"></div>
+					</el-col>
+				</el-row>
+				<el-row type="flex">
+					<el-col>
+						1241233i3ridfkjakfjdslkfjd
+						<!-- <div id="echarts3" style="width: 1200px; height: 300px;"></div> -->
+					</el-col>
+				</el-row>
+			</div>
+		</el-container>
 	</div>
 </template>
   
@@ -25,33 +27,46 @@ import axios from 'axios'
 export default {
 	data() {
 		return {
-			data1: []
+			data1: [],
+			data2: [],
+			xAxisdata2: [],
 		};
 	},
 	mounted() {
-		this.getEchartsData();
+		this.getEchartsData12()
 	},
 	methods: {
-		showEcharts() {
-			var chartDom = document.getElementById('fuck114');
+		showEcharts1() {
+			var chartDom = document.getElementById('echarts1');
 			var myChart = echarts.init(chartDom);
 			var option;
 			option = {
+				// title: {
+				// 	text: 'fuck xdl',
+				// 	left: 'center'
+				// },
 				tooltip: {
 					trigger: 'item'
 				},
 				legend: {
-					top: '5%',
-					left: 'center'
+					// textStyle: {
+					// 	fontSize: 10,
+					// },
+					show: true,
+					top: '18%',
+					orient: 'vertical',
+					left: 'left',
+
 				},
 				series: [
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['40%', '70%'],
+						radius: ['0%', '70%'],
+						center: ['60%', '50%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
-							borderRadius: 10,
+							borderRadius: 0,
 							borderColor: '#fff',
 							borderWidth: 0
 						},
@@ -62,7 +77,7 @@ export default {
 						emphasis: {
 							label: {
 								show: true,
-								fontSize: 20,
+								fontSize: 10,
 								fontWeight: 'bold'
 							}
 						},
@@ -75,18 +90,45 @@ export default {
 			};
 			option && myChart.setOption(option);
 		},
-		getEchartsData() {
+		showEcharts2() {
+			var chartDom = document.getElementById('echarts2');
+			var myChart = echarts.init(chartDom);
+			var option;
+			option = {
+				xAxis: {
+					type: 'category',
+					data: this.xAxisdata2,
+					axisLabel: {
+                    	rotate: 25, // 设置 x 轴刻度标签旋转角度
+                	},
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+					{
+						data: this.data2,
+						type: 'bar'
+					}
+				]
+			};
+			option && myChart.setOption(option);
+		},
+		getEchartsData12() {
 			axios.request({
 				method: 'GET',
-				url: 'api/article/nightingale',
+				url: 'api/article/codeforces',
 				params: {
-					chart_type: 'count',
+					count: 50,
 				}
 			}).then((res) => {
-				this.data1 = res.data
-				this.showEcharts()
+				this.data1 = res.data.pie_list
+				this.xAxisdata2 = res.data.x_axis_data
+				this.data2 = res.data.column_res
+				this.showEcharts1()
+				this.showEcharts2()
 			})
-		}
+		},
 	}
 }
 </script>

@@ -227,66 +227,6 @@ export default {
 				this.showEcharts3()
 			})
 		},
-		showEcharts4() {
-			var chartDom = document.getElementById('echarts4');
-			var myChart = echarts.init(chartDom);
-			var option;
-			option = {
-				tooltip: {
-					trigger: 'item'
-				},
-				// legend: {
-				// 	textStyle: {
-				// 		fontSize: 10,
-				// 	},
-				// 	show: true,
-				// 	top: '5%',
-				// 	// left: 'center'
-				// },
-				series: [
-					{
-						name: ['Access From'],
-						type: 'pie',
-						radius: ['40%', '70%'],
-						avoidLabelOverlap: false,
-						itemStyle: {
-							borderRadius: 0,
-							borderColor: '#fff',
-							borderWidth: 0
-						},
-						label: {
-							show: false,
-							position: 'center'
-						},
-						emphasis: {
-							label: {
-								show: true,
-								fontSize: 10,
-								fontWeight: 'bold'
-							}
-						},
-						labelLine: {
-							show: false
-						},
-						data: this.data1,
-					}
-				]
-			};
-			option && myChart.setOption(option);
-		},
-		getEchartsData4() {
-			axios.request({
-				method: 'GET',
-				url: 'api/article/nightingale',
-				params: {
-					chart_type: 'count',
-				}
-			}).then((res) => {
-				this.data1 = res.data
-				this.showEcharts4()
-			})
-		},
-
 	}
 }
 </script>
