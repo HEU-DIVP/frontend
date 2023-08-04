@@ -43,10 +43,10 @@ export default {
 			var myChart = echarts.init(chartDom);
 			var option;
 			option = {
-				title: {
-					text: 'fuck xdl',
-					left: 'center'
-				},
+				// title: {
+				// 	text: 'fuck xdl',
+				// 	left: 'center'
+				// },
 				tooltip: {
 					trigger: 'item'
 				},
@@ -57,13 +57,15 @@ export default {
 					show: true,
 					top: '20%',
 					orient: 'vertical',
-					left: 'left'
+					left: 'left',
+
 				},
 				series: [
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['40%', '70%'],
+						radius: ['0%', '70%'],
+						center: ['70%', '50%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
@@ -110,28 +112,28 @@ export default {
 				tooltip: {
 					trigger: 'item'
 				},
-				title: {
-					text: 'fuck xdl',
-					left: 'center'
-				},
-				legend: {
-					// textStyle: {
-					// 	fontSize: 10,
-					// },
-					show: true,
-					top: '20%',
-					orient: 'vertical',
-					left: 'left'
-				},
+				// title: {
+				// 	text: 'fuck xdl',
+				// 	left: 'center'
+				// },
+				// legend: {
+				// 	// textStyle: {
+				// 	// 	fontSize: 10,
+				// 	// },
+				// 	show: true,
+				// 	top: '20%',
+				// 	orient: 'vertical',
+				// 	left: 'left'
+				// },
 				grid: {
-					left: '400px',
+					left: '200px',
 					containLabel: true
 				},
 				series: [
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['40%', '70%'],
+						radius: ['0%', '70%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
 							borderRadius: 0,
