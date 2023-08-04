@@ -17,7 +17,11 @@
 				<el-table :data="dataCf" height="240px" border style="width:100%;margin-top20px">
 					<el-table-column prop="id" label="#" width="140" header-align="center" align="center"></el-table-column>
 					<el-table-column prop="creationTimeSeconds" label="When" width="140" header-align="center"
-						align="center"></el-table-column>
+						align="center">
+						<template slot-scope="scope">
+							{{ scope.row.creationTimeSeconds | formatDate }}
+						</template>
+					</el-table-column>
 					<el-table-column prop="problem.rating" label="Rating" width="140" header-align="center"
 						align="center"></el-table-column>
 					<el-table-column prop="author.contestId" label="ContestID" width="140" header-align="center"
@@ -26,9 +30,17 @@
 						align="center"></el-table-column>
 					<el-table-column prop="verdict" label="Verdict" header-align="center" align="center"></el-table-column>
 					<el-table-column prop="timeConsumedMillis" label="Time" width="120" header-align="center"
-						align="center"></el-table-column>
+						align="center">
+						<template slot-scope="scope">
+							{{ scope.row.timeConsumedMillis + 'ms' }}
+						</template>
+					</el-table-column>
 					<el-table-column prop="memoryConsumedBytes" label="Memory" width="120" header-align="center"
-						align="center"></el-table-column>
+						align="center">
+						<template slot-scope="scope">
+							{{ scope.row.memoryConsumedBytes + 'KB' }}
+						</template>
+					</el-table-column>
 				</el-table>
 			</div>
 		</el-col>
@@ -45,10 +57,15 @@ export default {
 			data2: [],
 			xAxisdata2: [],
 			dataCf: [],
-
 			responseData: '',
 			intervalId: null
 		};
+	},
+	filters: {
+		formatDate(timestamp) {
+			const date = new Date(timestamp * 1000);
+			return date.toLocaleString().replace(/:\d{1,2}$/, '');
+		},
 	},
 	mounted() {
 		this.getEchartsData12()
@@ -147,8 +164,6 @@ export default {
 					count: 50,
 				}
 			}).then((res) => {
-				console.log(res)
-				console.log("xdlq")
 				if (res.data) {
 					this.data1 = res.data.pie_list
 					this.xAxisdata2 = res.data.x_axis_data
