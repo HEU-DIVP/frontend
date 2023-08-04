@@ -4,18 +4,18 @@
 			<div>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts1" style="width: 300px; height: 300px;"></div>
+						<div id="echarts1" style="width: 500px; height: 300px;"></div>
 					</el-col>
 					<el-col>
-						<div id="echarts2" style="width: 300px; height: 300px;"></div>
+						<div id="echarts2" style="width: 500px; height: 300px;"></div>
 					</el-col>
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 300px; height: 300px;"></div>
+						<div id="echarts3" style="width: 500px; height: 300px;"></div>
 					</el-col>
 					<el-col>
-						<div id="echarts4" style="width: 300px; height: 300px;"></div>
+						<div id="echarts4" style="width: 500px; height: 300px;"></div>
 					</el-col>
 				</el-row>
 			</div>
@@ -30,7 +30,9 @@ export default {
 	data() {
 		return {
 			data1: [],
-			data3: []
+			legend_data3: [],
+			xAxis_data3: [],
+			series3: [],
 		};
 	},
 	mounted() {
@@ -165,27 +167,19 @@ export default {
 			var option;
 			option = {
 				title: {
-					text: 'Stacked Line'
+					text: ''
 				},
 				tooltip: {
 					trigger: 'axis'
 				},
 				legend: {
-					data: ["启航网-团情动态-新闻",
-						"启航网-团情动态-通知",
-						"启航网-团情动态-公告",
-						"启航网-创新工作",
-						"启航网-创业工作",
-						"启航网-创新创业公示板",
-						"启航网-媒体聚焦",
-						"启航网-基层团讯",
-						"启航网-理事会讯"
-					]
+					data: this.legend_data3
 				},
 				grid: {
 					left: '3%',
 					right: '4%',
 					bottom: '3%',
+					top: '25%',
 					containLabel: true
 				},
 				toolbox: {
@@ -196,170 +190,29 @@ export default {
 				xAxis: {
 					type: 'category',
 					boundaryGap: false,
-					data: ["2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "1970"],
+					data: this.xAxis_data3
 				},
 				yAxis: {
 					type: 'value'
 				},
-				"series": [
-					{
-						"name": "启航网-团情动态-新闻",
-						"type": "line",
-						"stack": "Total",
-						"data": [51, 104, 132, 75, 200, 231, 184, 150, 0, 3],
-					},
-					{
-						"name": "启航网-团情动态-通知",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							179,
-							241,
-							236,
-							214,
-							282,
-							255,
-							246,
-							221,
-							1,
-							1
-						]
-					},
-					{
-						"name": "启航网-团情动态-公告",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							37,
-							73,
-							55,
-							52,
-							70,
-							57,
-							43,
-							11,
-							0,
-							0
-						]
-					},
-					{
-						"name": "启航网-创新工作",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							0,
-							0,
-							0,
-							1,
-							16,
-							25,
-							20,
-							4,
-							0,
-							0
-						]
-					},
-					{
-						"name": "启航网-创业工作",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							14,
-							30,
-							23,
-							18,
-							45,
-							47,
-							14,
-							0,
-							0,
-							0
-						]
-					},
-					{
-						"name": "启航网-创新创业公示板",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							78,
-							249,
-							228,
-							102,
-							67,
-							0,
-							0,
-							0,
-							0,
-							0
-						]
-					},
-					{
-						"name": "启航网-媒体聚焦",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							0,
-							0,
-							0,
-							0,
-							0,
-							0,
-							0,
-							0,
-							0,
-							159
-						]
-					},
-					{
-						"name": "启航网-基层团讯",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							70,
-							245,
-							380,
-							319,
-							442,
-							643,
-							548,
-							566,
-							0,
-							0
-						]
-					},
-					{
-						"name": "启航网-理事会讯",
-						"type": "line",
-						"stack": "Total",
-						"data": [
-							27,
-							26,
-							38,
-							41,
-							44,
-							13,
-							42,
-							87,
-							0,
-							10
-						]
-					}
-				]
+				"series": this.series3
 			}
 			option && myChart.setOption(option)
 		},
 		getEchartsData3() {
-			// axios.request({
-			// 	method: 'GET',
-			// 	url: 'api/article/nightingale',
-			// 	params: {
-			// 		chart_type: 'count',
-			// 	}
-			// }).then((res) => {
-			// 	this.data1 = res.data
-			// 	this.showEcharts3()
-			// })
-			this.showEcharts3()
+			axios.request({
+				method: 'GET',
+				url: 'api/article/line',
+				params: {
+					chart_type: 'year',
+				}
+			}).then((res) => {
+				this.legend_data3 = res.data.category_list
+				this.xAxis_data3 = res.data.year_list
+				this.series3 = res.data.series
+				// console.log(this.xAxis_data3)
+				this.showEcharts3()
+			})
 		},
 		showEcharts4() {
 			var chartDom = document.getElementById('echarts4');
