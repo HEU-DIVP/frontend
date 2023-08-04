@@ -1,8 +1,7 @@
 <template>
     <div>
-        <div></div>
         <el-dialog title="登录" :visible.sync="dialogFormVisible" width="30%" :show-close="false" :center="true"
-            :close-on-click-modal="false" :close-on-press-escape="false">
+            :close-on-click-modal="false" :close-on-press-escape="false" style="padding-bottom: 0px;">
             <el-form :model="form">
                 <el-form-item label="账号" :label-width="formLabelWidth">
                     <el-input v-model="form.username" autocomplete="off" style="width:200px"></el-input>
@@ -19,8 +18,11 @@
                     </div>
                 </el-form-item>
             </el-form>
+
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="loginFun">登录</el-button>
+                <br>
+                <el-button type="text" @click="gotoRegisterView">还没有账号？点我注册捏</el-button>
             </div>
         </el-dialog>
     </div>
@@ -47,6 +49,9 @@ export default {
         this.getCodeImg()
     },
     methods: {
+        gotoRegisterView() {
+            this.$router.push("/register");
+        },
         loginFun() {
             axios.request({
                 method: 'POST',
@@ -62,7 +67,7 @@ export default {
                 this.$store.commit('$_setToken', res.data.token)
                 this.$store.commit('$_setUsername', this.form.username)
                 this.$router.push('/')
-            }).catch((err)=>{
+            }).catch((err) => {
                 console.log(err)
             })
         },
