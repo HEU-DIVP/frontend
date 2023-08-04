@@ -32,6 +32,7 @@ axios.interceptors.response.use((res) => {
   }
   return res;
 }, (err) => {
+  console.log(err)
   if (err.response.status == 401) {
     localStorage.removeItem('token')
     ElementUI.Message({
@@ -44,7 +45,7 @@ axios.interceptors.response.use((res) => {
       message: err.response.data.msg,
       type: 'error'
     })
-    router.push('/login')
+    // router.push('/login')
   }
 })
 

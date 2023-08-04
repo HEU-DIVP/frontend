@@ -77,7 +77,6 @@ const router = new Router({
       component: ProjectView,
       meta: {
         title: "项目简介",
-        needLogin: true
       }
     },
     {
