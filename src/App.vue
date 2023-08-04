@@ -13,8 +13,9 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="gotoMainView">首页</el-dropdown-item>
               <el-dropdown-item @click.native="gotoProjectView">关于</el-dropdown-item>
-              <el-dropdown-item @click.native="gotoLogout">注销</el-dropdown-item>
               <el-dropdown-item @click.native="gotoChangePassword">修改密码</el-dropdown-item>
+              <el-dropdown-item @click.native="gotoLogout">退出登录</el-dropdown-item>
+              <el-dropdown-item @click.native="DeleteAccount">注销账户</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -47,6 +48,12 @@
         <router-view></router-view>
       </el-container>
     </el-container>
+    <el-dialog title="注销账户" :visible.sync="dialogDeleteVisible" width="30%" :before-close="handleClose">
+      <el-input v-model="password" placeholder="请输入密码以注销账户" :value="password"></el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="danger" @click="SubmitDeleteRequest">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <style>
@@ -68,12 +75,14 @@ body {
 </style>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: "App",
   data() {
     return {
-      user: ''
+      user: '',
+      dialogDeleteVisible: false,
+      password: ''
     };
   },
   mounted() {
@@ -100,6 +109,23 @@ export default {
     },
     gotoChangePassword() {
       this.$router.push("/changepassword");
+    },
+    DeleteAccount() {
+      this.dialogDeleteVisible = true
+    },
+    SubmitDeleteRequest() {
+      axios.request({
+        method: 'DELETE',
+        url: 'api/user/login',
+        data: {
+          username: localStorage.getItem('username'),
+          password: this.password,
+        }
+      }).then((res) => {
+        this.dialogDeleteVisible = false
+        this.$store.commit('$_removetoken')
+        this.gotoMainView()
+      })
     }
   },
 }

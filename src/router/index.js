@@ -5,6 +5,7 @@ import MainView from '../views/HomeView/MainView.vue'
 
 import LoginView from '../views/LoginView/LoginView.vue'
 import ChangePasswordView from '../views/LoginView/ChangePasswordView.vue'
+import RegisterView from '../views/LoginView/RegisterView.vue'
 
 import ArticleView from '../views/ProjectView/ArticleView.vue'
 import AddArticleView from '../views/ProjectView/AddArticleView.vue'
@@ -79,6 +80,14 @@ const router = new Router({
         needLogin: true
       }
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+      meta: {
+        title: "注册新账号",
+      }
+    }
   ]
 })
 
