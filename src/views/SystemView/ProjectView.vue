@@ -2,19 +2,19 @@
 	<div>
 		<el-col style="width: 100%;">
 			<el-container>
-				<div style="height: 410px;">
+				<div style="height: 340px;">
 					<el-row type="flex">
 						<el-col>
-							<div id="echarts1" style="width: 650px; height: 360px;"></div>
+							<div id="echarts1" style="width: 650px; height: 320px;margin: 0px;"></div>
 						</el-col>
 						<el-col>
-							<div id="echarts2" style="width: 650px; height: 360px;"></div>
+							<div id="echarts2" style="width: 650px; height: 320px;margin: 0px;"></div>
 						</el-col>
 					</el-row>
 				</div>
 			</el-container>
 			<div>
-				<el-table :data="dataCf" height="240px" border style="width:100%;margin-top20px">
+				<el-table :data="dataCf" height="320px" border stripe style="width:100%;">
 					<el-table-column prop="id" label="#" width="140" header-align="center" align="center"></el-table-column>
 					<el-table-column prop="creationTimeSeconds" label="When" width="140" header-align="center"
 						align="center">
@@ -22,23 +22,30 @@
 							{{ scope.row.creationTimeSeconds | formatDate }}
 						</template>
 					</el-table-column>
-					<el-table-column prop="problem.rating" label="Rating" width="140" header-align="center"
-						align="center"></el-table-column>
+					<el-table-column prop="problem.rating" label="Rating" width="140" header-align="center" align="center">
+						<template slot-scope="scope">
+							{{ scope.row.problem.rating | formatRating }}
+						</template>
+					</el-table-column>
 					<el-table-column prop="author.contestId" label="ContestID" width="140" header-align="center"
 						align="center"></el-table-column>
 					<el-table-column prop="programmingLanguage" label="Lang" width="200" header-align="center"
 						align="center"></el-table-column>
-					<el-table-column prop="verdict" label="Verdict" header-align="center" align="center"></el-table-column>
+					<el-table-column prop="verdict" label="Verdict" header-align="center" align="center">
+						<template slot-scope="scope">
+							{{ scope.row.verdict | formatVerdict }}
+						</template>
+					</el-table-column>
 					<el-table-column prop="timeConsumedMillis" label="Time" width="120" header-align="center"
 						align="center">
 						<template slot-scope="scope">
-							{{ scope.row.timeConsumedMillis + 'ms' }}
+							{{ scope.row.timeConsumedMillis | formatTime }}
 						</template>
 					</el-table-column>
 					<el-table-column prop="memoryConsumedBytes" label="Memory" width="120" header-align="center"
 						align="center">
 						<template slot-scope="scope">
-							{{ scope.row.memoryConsumedBytes + 'KB' }}
+							{{ scope.row.memoryConsumedBytes | formatMemory }}
 						</template>
 					</el-table-column>
 				</el-table>
@@ -66,6 +73,40 @@ export default {
 			const date = new Date(timestamp * 1000);
 			return date.toLocaleString().replace(/:\d{1,2}$/, '');
 		},
+		formatMemory(memoryString) {
+			const memoryValue = parseFloat(memoryString);
+			if (memoryValue > (1024.0 * 1024.0)) {
+				return String((memoryValue / (1024.0 * 1024.0)).toFixed(2)) + 'MB';
+			} else if (memoryValue > 1024.0) {
+				return String((memoryValue / 1024.0).toFixed(2)) + 'KB';
+			} else {
+				return String(memoryValue.toFixed(2)) + 'B';
+			}
+		},
+		formatTime(timeString) {
+			const timeValue = parseFloat(timeString);
+			if (timeValue == 0.0) {
+				return String(timeValue.toFixed(0)) + 'ms'
+			} else if (timeValue >= 1000.0) {
+				return String((timeValue / 1000.0).toFixed(3)) + 's';
+			} else {
+				return String(timeValue.toFixed(0)) + 'ms';
+			}
+		},
+		formatVerdict(verdictString) {
+			if (!verdictString || verdictString == '') {
+				return 'NO_STATUS'
+			} else {
+				return verdictString;
+			}
+		},
+		formatRating(ratingString) {
+			if (!ratingString || ratingString == '') {
+				return '-'
+			} else {
+				return ratingString
+			}
+		}
 	},
 	mounted() {
 		this.getEchartsData12()
@@ -92,7 +133,7 @@ export default {
 					// 	fontSize: 10,
 					// },
 					show: true,
-					top: '18%',
+					top: '14%',
 					orient: 'vertical',
 					left: 'left',
 
