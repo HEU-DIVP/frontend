@@ -4,23 +4,37 @@
 			<div style="margin-top: 10px;">
 				<el-row type="flex">
 					<el-col>
-						<div style="text-align: center;">文章板块分布</div>
-						<div id="echarts1" style="width: 600px; height: 330px;"></div>
+						<div class="title">文章板块分布</div>
+						<div id="echarts1" class="pie-chart"></div>
 					</el-col>
 					<el-col>
-						<div style="text-align: center;">文章点击量分布</div>
-						<div id="echarts2" style="width: 600px; height: 330px;"></div>
+						<div class="title">文章点击量分布</div>
+						<div id="echarts2" class="pie-chart"></div>
 					</el-col>
 				</el-row>
 				<el-row type="flex">
 					<el-col>
-						<div id="echarts3" style="width: 1200px; height: 290px;"></div>
+						<div class="title">历年文章数据</div>
+						<div id="echarts3" style="width: 1300px; height: 290px;"></div>
 					</el-col>
 				</el-row>
 			</div>
 		</el-container>
 	</div>
 </template>
+
+<style>
+.title {
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+}
+
+.pie-chart {
+	width: 650px;
+	height: 310px;
+}
+</style>
 
 <script>
 import * as echarts from 'echarts'
@@ -66,7 +80,7 @@ export default {
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['0%', '70%'],
+						radius: ['45%', '70%'],
 						center: ['70%', '45%'],
 						avoidLabelOverlap: false,
 						itemStyle: {
@@ -135,7 +149,7 @@ export default {
 					{
 						name: ['Access From'],
 						type: 'pie',
-						radius: ['0%', '70%'],
+						radius: ['45%', '70%'],
 						center: ['70%', '45%'],
 						avoidLabelOverlap: false,
 						itemStyle: {

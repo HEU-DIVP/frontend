@@ -124,7 +124,7 @@ export default {
       }).then((res) => {
         this.dialogDeleteVisible = false
         this.$store.commit('$_removetoken')
-        this.gotoMainView()
+        this.$router.push('/login/')
       })
     }
   },

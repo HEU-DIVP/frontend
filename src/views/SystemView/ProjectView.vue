@@ -75,7 +75,9 @@ export default {
 		},
 		formatMemory(memoryString) {
 			const memoryValue = parseFloat(memoryString);
-			if (memoryValue > (1024.0 * 1024.0)) {
+			if (memoryValue == 0.0) {
+				return '0B'
+			} else if (memoryValue > (1024.0 * 1024.0)) {
 				return String((memoryValue / (1024.0 * 1024.0)).toFixed(2)) + 'MB';
 			} else if (memoryValue > 1024.0) {
 				return String((memoryValue / 1024.0).toFixed(2)) + 'KB';

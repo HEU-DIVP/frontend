@@ -15,7 +15,7 @@
       <el-button type="danger" icon="el-icon-delete" circle @click="DeleteCategory"></el-button>
     </div>
     <div>
-      <el-table v-loading="loading" :data="articleData" height="540px" border style="width:100%;margin-top:20px" >
+      <el-table v-loading="loading" :data="articleData" height="540px" border style="width:100%;margin-top:20px">
         <el-table-column type="index" label="序号" width="60" header-align="center"></el-table-column>
         <el-table-column prop="create_time" label="发布时间" width="150" header-align="center"></el-table-column>
         <el-table-column prop="title" label="标题" header-align="center"></el-table-column>
@@ -29,42 +29,43 @@
           </template>
         </el-table-column>
       </el-table>
-  </div>
-  <div class="block">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="cur_page"
-      :page-sizes="[20, 30, 40, 50]" :page-size="cur_size" layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
-  <div>
-    <el-dialog title="网页预览" :visible.sync="dialogVisible" width="80%">
-      <div style="width:1450px;height:800px;overflow:hidden;transform-origin:top left;transform:scale(0.8)">
-        <iframe :src="url" frameborder="0" class="ifr"></iframe>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
-  </div>
-  <div>
-    <el-dialog title="添加来源" :visible.sync="dialogAddVisible" width="30%" :before-close="handleClose">
-      <el-input v-model="new_category" placeholder="请输入来源" :value="new_category"></el-input>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="SubmitNewCategory">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="删除来源" :visible.sync="dialogDeleteVisible" width="20%" :before-close="handleClose">
-      <el-select v-model="delete_category_name" placeholder="请选择文章来源" style="margin-left:20px">
-        <el-option v-for="(cate, index) in categoryData" :key="index" :label="cate.name" :value="cate.cid"
-          @click.native="choose_del_category(cate.cid, cate.name)"></el-option>
-      </el-select>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="SubmitNewCategory">确 定</el-button>
-      </span>
-    </el-dialog>
-  </div>
+    </div>
+    <div class="block">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="cur_page"
+        :page-sizes="[20, 30, 40, 50]" :page-size="cur_size" layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
+    <div>
+      <el-dialog title="网页预览" :visible.sync="dialogVisible" width="80%">
+        <div style="width:1450px;height:800px;overflow:hidden;transform-origin:top left;transform:scale(0.8)">
+          <iframe :src="url" frameborder="0" class="ifr"></iframe>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+    <div>
+      <el-dialog title="添加来源" :visible.sync="dialogAddVisible" width="30%" :before-close="handleClose">
+        <el-input v-model="new_category" placeholder="请输入来源" :value="new_category"></el-input>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="SubmitNewCategory">确 定</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog title="删除来源" :visible.sync="dialogDeleteVisible" width="20%" :before-close="handleClose">
+        <el-select v-model="delete_category_name" placeholder="请选择文章来源" style="margin-left:20px">
+          <el-option v-for="(cate, index) in categoryData" :key="index" :label="cate.name" :value="cate.cid"
+            @click.native="choose_del_category(cate.cid, cate.name)"></el-option>
+        </el-select>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="SubmitDeleteCategory">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
 
-</el-col></template>
+  </el-col>
+</template>
 
 <script>
 import axios from 'axios'
@@ -195,7 +196,7 @@ export default {
           aid: row.aid
         }
       }).then((res) => {
-        this.x_refresh()
+        this.req_category(0, 1)
       })
     },
     AddCategory() {
@@ -210,6 +211,7 @@ export default {
         }
       }).then((res) => {
         this.dialogAddVisible = false
+        this.getCategoryData()
       })
     },
     DeleteCategory() {
@@ -233,6 +235,7 @@ export default {
         }
       }).then((res) => {
         this.dialogDeleteVisible = false
+        this.getCategoryData()
       })
     }
   }
